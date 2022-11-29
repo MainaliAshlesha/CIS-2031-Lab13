@@ -12,11 +12,10 @@ struct List {
 
 //Prints the list to the provided output stream
 void print( List* l, std::ostream &out){
-    while ( l != NULL ){
-        //As long as l is not null....
-        out << l->value; //Print out it's value
-        l = l->next; //Move on to the next value
-    }
+    if ( l == NULL )
+        return; 
+    out << l->value; //Print out it's value
+    print (l->next, out ) ; //Move on to the next value
 }
 
 //Returns the number of items in the list
@@ -31,10 +30,10 @@ int length(List* l){
 //Get the Nth item from the list
 string get(List* l, int index){
    if ( l == NULL )
-       return " ";
-       if ( index == 0 )
+       return "";
+    if ( index == 0 )
        return l -> value; 
-       return get ( l -> next , index - 1 );
+    return get ( l -> next , index - 1 );
 }
 
 //Returns true if the list contains needle
