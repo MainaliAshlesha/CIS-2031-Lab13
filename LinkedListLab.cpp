@@ -38,13 +38,15 @@ string get(List* l, int index){
 
 //Returns true if the list contains needle
 bool contains(List* l, string needle){
-    while ( l != NULL ){
-        if ( l->value == needle ){
-            return true;
-        }
-        l = l->next;
+    if ( l == NULL ){
+        return false; 
     }
-    return false;
+    else if ( l->value == needle ){
+            return true;  
+    }else{
+        return contains (l->next, needle);
+    }
+    
 }
 
 //Add an item to the list
@@ -52,30 +54,25 @@ void insertAt(List* &list, int pos, string value){
     if ( list == NULL || pos == 0 ){
         list = new List{value, list};
     } else {
-        List* l = list;
-        while( l->next != NULL && pos > 1 ){
-            pos--;
-            l = l->next;
-        }
-        l->next = new List{value, l->next};
+            insertAt(list->next, pos -1, value );
+        } 
     }
-}
 
 //Remove an item from the list
 void deleteAt(List* &list, int pos){
-    if ( list != NULL && pos == 0 ){
-        list = list->next;
-    } else {
-        List *l = list;
-        while( l != NULL && pos > 1 ){
-            pos--;
-            l = l->next;
-        }
-        if ( l != NULL && l->next != NULL ){
-            l->next = l->next->next;
-        }
+    List*l = list; 
+    if (list == NULL){
+        return;
     }
-}
+    if (pos==0){
+        list = list -> next; 
+    }else{
+        deleteAt (l->next, pos - 1);
+    }
+
+    }
+    
+            
 
 /////////////////////////////////////////////////////
 //
